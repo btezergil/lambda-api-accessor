@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  Example basic lambda using `holy-lambda` micro library
+  Telegram Bot Webhook Listener
 
 Parameters:
   Timeout:
@@ -12,7 +12,7 @@ Parameters:
     Default: 512
   Entrypoint:
     Type: String
-    Default: com.company.example-lambda.core
+    Default: com.webhook.core
 
 Globals:
   Function:
@@ -23,31 +23,29 @@ Globals:
         HL_ENTRYPOINT: !Ref Entrypoint
 
 Resources:
-  ExampleLambdaFunction:
+  WebhookLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: ExampleLambdaFunction
+      FunctionName: WebhookLambdaFunction
       PackageType: Image
       Events:
         HelloEvent:
           Type: HttpApi
           Properties:
-            ApiId: !Ref ServerlessHttpApi
+            ApiId: !Ref BotHttpApi
             Path: /
-            Method: GET
+            Method: POST
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: .
       DockerTag: v1
 
-  ExampleHttpApi:
+  BotHttpApi:
     Type: AWS::Serverless::HttpApi
     DeletionPolicy: Retain
-    Properties:
-      StageName: Prod
 
 Outputs:
-  ExampleLambdaEndpoint:
-    Description: Endpoint for ExampleLambdaFunction
+  WebhookLambdaEndpoint:
+    Description: Endpoint for WebhookLambdaFunction
     Value:
-      Fn::Sub: https://${ExampleHttpApi}.execute-api.${AWS::Region}.amazonaws.com
+      Fn::Sub: https://${BotHttpApi}.execute-api.${AWS::Region}.amazonaws.com

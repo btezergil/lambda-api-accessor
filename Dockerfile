@@ -3,5 +3,5 @@ MAINTAINER Karol Wójcik <karol.wojcik@tuta.io>
 
 ADD .holy-lambda/build/output.jar output.jar
 
-CMD java -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -jar output.jar "com.company.example-lambda.core.ExampleLambda"
+CMD java -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -jar output.jar "com.webhook.core.TelegramWebhookLambda"
 

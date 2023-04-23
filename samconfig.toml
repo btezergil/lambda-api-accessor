@@ -7,5 +7,5 @@ region = "eu-central-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
-parameter_overrides = "Timeout=\"40\" MemorySize=\"512\" Entrypoint=\"com.company.example-lambda.core\""
-image_repositories = ["ExampleLambdaFunction=994976387571.dkr.ecr.eu-central-1.amazonaws.com/samapp7427b055/examplelambdafunctiond3ef7691repo"]
+parameter_overrides = "Timeout=\"40\" MemorySize=\"512\" Entrypoint=\"com.webhook.core\""
+image_repositories = ["WebhookLambdaFunction=994976387571.dkr.ecr.eu-central-1.amazonaws.com/samapp7427b055/webhooklambdafunction0cca7bb9repo"]

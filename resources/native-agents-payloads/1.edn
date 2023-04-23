@@ -1,4 +1,4 @@
-{:name "com.company.example-lambda.core.ExampleLambda",
+{:name "com.webhook.core.TelegramWebhookLambda",
  :request {:event {:pathParameters {:message "Hello world"}},
            :ctx {}},
  :propagate true}
