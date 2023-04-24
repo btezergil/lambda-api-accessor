@@ -9,11 +9,11 @@
 (defn execute-bot-actions
       "Executes the associated action with Telegram bot commands"
       [bot-command]
-      (log/info (format "executing action of bot command: %s " bot-command))
 
       (condp = bot-command
              "/mokoko" (log/info "come on, mokoko?")
-             "/testmessage" (log/info "message from webhook")))
+             "/testmessage" (log/info "message from webhook")
+             (log/info (format "no action defined for command %s " bot-command))))
 
 (defn webhook-handler
       "Handles webhook updates"
@@ -30,7 +30,7 @@
                  (execute-bot-actions command))))
 
 (defn TelegramWebhookLambda
-  "I can run on Java, Babashka or Native runtime..."
+  "Main clojure native Lambda function"
   [{:keys [event ctx] :as request}]
 
   (log/info (format "request: %s" request))
@@ -39,7 +39,6 @@
   (let [body (-> request
                  :event
                  :body-parsed)]
-    (log/info (format "parsed body: %s" body))
     (hr/text (webhook-handler body)))
 
   ;; return a successful plain text response. See also, hr/json

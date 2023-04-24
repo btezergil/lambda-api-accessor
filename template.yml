@@ -13,6 +13,9 @@ Parameters:
   Entrypoint:
     Type: String
     Default: com.webhook.core
+  StageName:
+    Type: String
+    Default: telegram-webhook
 
 Globals:
   Function:
@@ -29,7 +32,7 @@ Resources:
       FunctionName: WebhookLambdaFunction
       PackageType: Image
       Events:
-        HelloEvent:
+        MessageReceivedEvent:
           Type: HttpApi
           Properties:
             ApiId: !Ref BotHttpApi
@@ -43,9 +46,11 @@ Resources:
   BotHttpApi:
     Type: AWS::Serverless::HttpApi
     DeletionPolicy: Retain
+    Properties:
+      StageName: !Ref StageName
 
 Outputs:
   WebhookLambdaEndpoint:
     Description: Endpoint for WebhookLambdaFunction
     Value:
-      Fn::Sub: https://${BotHttpApi}.execute-api.${AWS::Region}.amazonaws.com
+      Fn::Sub: https://${BotHttpApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/
