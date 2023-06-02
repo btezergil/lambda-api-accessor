@@ -17,17 +17,15 @@
 
 (defn webhook-handler
       "Handles webhook updates"
-      [update]
-      (let [message (-> update
-                        :message)
-            bot-command? (= "bot_command" (-> message
-                                              :entities
-                                              first
-                                              :type))
-            command (:text message)]
-           (when bot-command?
-                 (log/info (format "received a bot command: %s " command))
-                 (execute-bot-actions command))))
+      [{:keys [message]}]
+      (let [{command :text
+             entities :entities} message
+            bot-command (= "bot_command" (-> entities
+                                             first
+                                             :type))]
+            (when bot-command
+              (do (log/info (format "received a bot command: %s " command))
+                  (execute-bot-actions command)))))
 
 (defn TelegramWebhookLambda
   "Main clojure native Lambda function"
