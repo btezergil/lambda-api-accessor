@@ -9,3 +9,4 @@ The holy-lambda documentation is available [here](https://fierycod.github.io/hol
 
 # Potential troubles:
 - Cannot get credentials: go to ~/.aws/configure file and delete any empty lines after the last credential 
+- Error: docker-credential-desktop not installed or not available in PATH: Go to ~/.docker/config.json and replace "credsStore" by "credStore"
